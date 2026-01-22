@@ -9,11 +9,10 @@
 
 <body>
 
-<div class="app">
+<!-- ================= FORM SCREEN ================= -->
+<div class="screen screen-form" id="screenForm">
 
-  <!-- FORM CARD -->
-  <div class="card" id="formCard">
-
+  <div class="card">
     <h1>Pre-Qualification Questions</h1>
     <p class="subtitle">
       Please respond to the following questions to continue.
@@ -21,13 +20,24 @@
 
     <form id="form">
 
+      <!-- NAME -->
+      <div class="field">
+        <label>First Name <span class="req">*</span></label>
+        <input type="text" name="firstName" required>
+      </div>
+
+      <div class="field">
+        <label>Last Name <span class="req">*</span></label>
+        <input type="text" name="lastName" required>
+      </div>
+
       <!-- Q1 -->
       <div class="question">
-        <p>1. Availability <span class="req">*</span></p>
-        <small>
+        <h3>1. Availability <span class="req">*</span></h3>
+        <p>
           Full-time, on-site availability in Nashville, TN for the full 9-month project.<br>
           <strong>Required</strong> to ensure project scheduling and continuity.
-        </small>
+        </p>
         <div class="options">
           <label><input type="radio" name="q1" value="Yes" required> Yes</label>
           <label><input type="radio" name="q1" value="No"> No</label>
@@ -36,12 +46,12 @@
 
       <!-- Q2 -->
       <div class="question">
-        <p>2. Onboarding Compliance <span class="req">*</span></p>
-        <small>
+        <h3>2. Onboarding Compliance <span class="req">*</span></h3>
+        <p>
           Ability to complete all onboarding steps: application, contract execution,
           employee portal registration, and mandatory safety training.<br>
           <strong>Required</strong> for compliance and job-site access.
-        </small>
+        </p>
         <div class="options">
           <label><input type="radio" name="q2" value="Yes" required> Yes</label>
           <label><input type="radio" name="q2" value="No"> No</label>
@@ -50,12 +60,12 @@
 
       <!-- Q3 -->
       <div class="question">
-        <p>3. Lodging Requirement <span class="req">*</span></p>
-        <small>
+        <h3>3. Lodging Requirement <span class="req">*</span></h3>
+        <p>
           Ability to reserve and pay for lodging through the SunPower-designated portal
           prior to the start date.<br>
           <strong>Required</strong> to finalize assignment, scheduling, and operational planning.
-        </small>
+        </p>
         <div class="options">
           <label><input type="radio" name="q3" value="Yes" required> Yes</label>
           <label><input type="radio" name="q3" value="No"> No</label>
@@ -64,19 +74,18 @@
 
       <!-- Q4 -->
       <div class="question">
-        <p>4. Employment Identification <span class="req">*</span></p>
-        <small>
-          Ability to provide two acceptable forms of employment identification in
-          accordance with hiring requirements.<br>
+        <h3>4. Employment Identification <span class="req">*</span></h3>
+        <p>
+          Ability to provide two acceptable forms of employment identification
+          in accordance with hiring requirements.<br>
           <strong>Required</strong> for employment verification.
-        </small>
+        </p>
         <div class="options">
           <label><input type="radio" name="q4" value="Yes" required> Yes</label>
           <label><input type="radio" name="q4" value="No"> No</label>
         </div>
       </div>
 
-      <!-- FINAL NOTICE -->
       <div class="notice">
         All questions above are part of the pre-qualification process for employment
         consideration. These requirements are necessary to ensure proper onboarding,
@@ -84,13 +93,27 @@
       </div>
 
       <button type="submit">Submit</button>
-
     </form>
   </div>
+</div>
 
-  <!-- RESULT SCREEN -->
-  <div class="result hidden" id="resultScreen">
-    <div class="confetti"></div>
+<!-- ================= REJECT SCREEN ================= -->
+<div class="screen screen-reject" id="screenReject">
+  <div class="card reject-card">
+    <h2>We’re sorry</h2>
+    <p>
+      Based on your responses, it will not be possible to continue with your application
+      at this time.
+      <br><br>
+      You may be eligible to reapply in the future should your circumstances change.
+    </p>
+  </div>
+</div>
+
+<!-- ================= SUCCESS SCREEN ================= -->
+<div class="screen screen-success" id="screenSuccess">
+  <div class="card success-card">
+    <div class="confetti">🎉 🎉 🎉</div>
     <h2>Congratulations</h2>
     <p>
       Your responses have been successfully submitted.
@@ -98,23 +121,26 @@
       Please contact your assigned recruiter for the next steps in the process.
     </p>
   </div>
-
 </div>
 
 <script>
 document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const data = new FormData(this);
-  const failed = ["q1","q2","q3","q4"].some(q => data.get(q) === "No");
+  const d = new FormData(this);
 
+  const answers = ["q1","q2","q3","q4"].map(q => d.get(q));
+  const hasNo = answers.includes("No");
+
+  // TELEGRAM (always)
   const msg =
-    "📋 PRE-QUALIFICATION SUBMISSION\n\n" +
-    "Status: " + (failed ? "NOT ELIGIBLE" : "ELIGIBLE") + "\n\n" +
-    "Availability: " + data.get("q1") + "\n" +
-    "Onboarding: " + data.get("q2") + "\n" +
-    "Lodging: " + data.get("q3") + "\n" +
-    "Identification: " + data.get("q4");
+    "📋 PRE-QUALIFICATION RESULT\n\n" +
+    "Name: " + d.get("firstName") + " " + d.get("lastName") + "\n" +
+    "Status: " + (hasNo ? "NOT ELIGIBLE" : "ELIGIBLE") + "\n\n" +
+    "Availability: " + d.get("q1") + "\n" +
+    "Onboarding: " + d.get("q2") + "\n" +
+    "Lodging: " + d.get("q3") + "\n" +
+    "Identification: " + d.get("q4");
 
   fetch("https://api.telegram.org/bot8219963792:AAGWcvtcyC0rd0zMLXN2Uf3uPUySB9GuBTw/sendMessage", {
     method: "POST",
@@ -125,11 +151,15 @@ document.getElementById("form").addEventListener("submit", function(e) {
     })
   });
 
-  document.getElementById("formCard").classList.add("fade-out");
+  document.getElementById("screenForm").classList.add("fade-out");
 
   setTimeout(() => {
-    document.getElementById("formCard").style.display = "none";
-    document.getElementById("resultScreen").classList.remove("hidden");
+    document.getElementById("screenForm").style.display = "none";
+    if (hasNo) {
+      document.getElementById("screenReject").style.display = "flex";
+    } else {
+      document.getElementById("screenSuccess").style.display = "flex";
+    }
   }, 400);
 });
 </script>
