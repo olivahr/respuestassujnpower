@@ -111,6 +111,32 @@ document.getElementById("form").addEventListener("submit", function(e) {
   });
 });
 </script>
+/* ===== Profesional Required Mark ===== */
+.req {
+  color: #d93025;
+  margin-left: 4px;
+}
 
+/* Mensajes finales */
+.result-box {
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.result-success {
+  background: #eaf4ff;
+  border: 1px solid #0b66ff;
+  color: #0b66ff;
+}
+
+.result-fail {
+  background: #fdecec;
+  border: 1px solid #d93025;
+  color: #b3261e;
+}
 </body>
 </html>
+
