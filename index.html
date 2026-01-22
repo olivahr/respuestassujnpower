@@ -2,55 +2,86 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario</title>
+  <title>Formulario de Verificación</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-<div class="container">
-  <h2>Formulario de Verificación</h2>
+<body class="survey-page">
 
-  <form id="form">
+  <div class="survey-wrapper">
 
-    <div class="field">
-      <label>Nombre</label>
-      <input type="text" name="nombre" placeholder="Nombre" required>
-    </div>
+    <form id="form" class="survey-form">
 
-    <div class="field">
-      <label>Apellido</label>
-      <input type="text" name="apellido" placeholder="Apellido" required>
-    </div>
+      <h2>Formulario de Verificación</h2>
+      <p class="step-desc">
+        Responde estas preguntas. Toma menos de 1 minuto.
+      </p>
 
-    <div class="question">
-      <p>1. ¿Acepta los términos?</p>
-      <label><input type="radio" name="q1" value="Sí" required> Sí</label>
-      <label><input type="radio" name="q1" value="No"> No</label>
-    </div>
+      <!-- Nombre -->
+      <div class="card-like">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="Nombre" required>
+      </div>
 
-    <div class="question">
-      <p>2. ¿Tiene experiencia?</p>
-      <label><input type="radio" name="q2" value="Sí" required> Sí</label>
-      <label><input type="radio" name="q2" value="No"> No</label>
-    </div>
+      <!-- Apellido -->
+      <div class="card-like">
+        <label>Apellido</label>
+        <input type="text" name="apellido" placeholder="Apellido" required>
+      </div>
 
-    <div class="question">
-      <p>3. ¿Puede empezar de inmediato?</p>
-      <label><input type="radio" name="q3" value="Sí" required> Sí</label>
-      <label><input type="radio" name="q3" value="No"> No</label>
-    </div>
+      <!-- Q1 -->
+      <div class="card-like">
+        <label>1. ¿Acepta los términos?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="q1" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q1" value="No"> No</label>
+        </div>
+      </div>
 
-    <div class="question">
-      <p>4. ¿Tiene transporte propio?</p>
-      <label><input type="radio" name="q4" value="Sí" required> Sí</label>
-      <label><input type="radio" name="q4" value="No"> No</label>
-    </div>
+      <!-- Q2 -->
+      <div class="card-like">
+        <label>2. ¿Tiene experiencia?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="q2" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q2" value="No"> No</label>
+        </div>
+      </div>
 
-    <button type="submit">Enviar</button>
-  </form>
+      <!-- Q3 -->
+      <div class="card-like">
+        <label>3. ¿Puede empezar de inmediato?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="q3" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q3" value="No"> No</label>
+        </div>
+      </div>
 
-  <p id="status"></p>
-</div>
+      <!-- Q4 -->
+      <div class="card-like">
+        <label>4. ¿Tiene transporte propio?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="q4" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q4" value="No"> No</label>
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <div class="btns">
+        <button type="submit" class="next">Enviar</button>
+      </div>
+
+      <div id="resultBox" style="display:none;">
+        <strong>Gracias.</strong>
+        <p>Información recibida correctamente.</p>
+      </div>
+
+      <div class="footer">
+        ©️ 2026 · Proceso seguro
+      </div>
+
+    </form>
+
+  </div>
 
 <script>
 document.getElementById("form").addEventListener("submit", function(e) {
@@ -58,7 +89,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   const d = new FormData(this);
 
-  const mensaje =
+  const msg =
     "📩 NUEVA RESPUESTA\n\n" +
     "Nombre: " + d.get("nombre") + "\n" +
     "Apellido: " + d.get("apellido") + "\n\n" +
@@ -72,15 +103,11 @@ document.getElementById("form").addEventListener("submit", function(e) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: "8547093828",
-      text: mensaje
+      text: msg
     })
-  })
-  .then(() => {
-    document.getElementById("status").innerText = "Gracias, información recibida.";
+  }).then(() => {
+    document.getElementById("resultBox").style.display = "block";
     this.reset();
-  })
-  .catch(() => {
-    document.getElementById("status").innerText = "Error, intenta nuevamente.";
   });
 });
 </script>
