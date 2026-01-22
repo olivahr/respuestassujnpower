@@ -1,203 +1,116 @@
-/* ================================
-   SURVEY (solo survey.html)
-==================================*/
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Survey</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-/* Reset mínimo SOLO para survey */
-body.survey-page {
-  margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: #111;
-  background: linear-gradient(180deg, #f4f6f8, #eef1f4);
-}
+<body class="survey-page">
 
-.survey-page * {
-  box-sizing: border-box;
-}
+  <div class="survey-wrapper">
 
-/* Caja principal */
-.survey-page .survey-wrapper {
-  max-width: 560px;
-  margin: 80px auto;
-  background: #fff;
-  border-radius: 18px;
-  padding: 26px 22px 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-}
+    <form id="form" class="survey-form">
 
-/* En móviles, que no quede “aplastado” */
-@media (max-width: 640px) {
-  .survey-page .survey-wrapper {
-    margin: 70px 14px;
-    padding: 22px 16px;
-  }
-}
+      <h2>Formulario de verificación</h2>
+      <p class="step-desc">
+        Complete la siguiente información. No tomará más de 1 minuto.
+      </p>
 
-/* Asegura layout vertical dentro del form (tu form tiene display:flex inline) */
-.survey-page .survey-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+      <!-- Nombre -->
+      <div class="card-like">
+        <label>Nombre</label>
+        <input type="email" name="nombre" placeholder="Nombre" required>
+      </div>
 
-/* Tipografía base */
-.survey-page h2 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-}
+      <!-- Apellido -->
+      <div class="card-like">
+        <label>Apellido</label>
+        <input type="email" name="apellido" placeholder="Apellido" required>
+      </div>
 
-.survey-page .step-desc {
-  margin: 0;
-  opacity: 0.85;
-  font-size: 14px;
-  line-height: 1.5;
-}
+      <!-- Pregunta 1 -->
+      <div class="card-like">
+        <p><strong>1. ¿Acepta los términos?</strong></p>
+        <div class="radio-row">
+          <label><input type="radio" name="q1" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q1" value="No"> No</label>
+        </div>
+      </div>
 
-/* Labels / inputs */
-.survey-page label {
-  font-size: 13px;
-  font-weight: 600;
-}
+      <!-- Pregunta 2 -->
+      <div class="card-like">
+        <p><strong>2. ¿Tiene experiencia?</strong></p>
+        <div class="radio-row">
+          <label><input type="radio" name="q2" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q2" value="No"> No</label>
+        </div>
+      </div>
 
-.survey-page input[type="email"] {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #dfe5ec;
-  font-size: 14px;
-}
+      <!-- Pregunta 3 -->
+      <div class="card-like">
+        <p><strong>3. ¿Puede empezar de inmediato?</strong></p>
+        <div class="radio-row">
+          <label><input type="radio" name="q3" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q3" value="No"> No</label>
+        </div>
+      </div>
 
-.survey-page input[type="email"]:focus {
-  outline: none;
-  border-color: #0b66ff;
-  box-shadow: 0 0 0 2px rgba(11,102,255,0.15);
-}
+      <!-- Pregunta 4 -->
+      <div class="card-like">
+        <p><strong>4. ¿Tiene transporte propio?</strong></p>
+        <div class="radio-row">
+          <label><input type="radio" name="q4" value="Sí" required> Sí</label>
+          <label><input type="radio" name="q4" value="No"> No</label>
+        </div>
+      </div>
 
-/* Tarjetas de preguntas */
-.survey-page .card-like {
-  background: #ffffff;
-  border: 1px solid #dfe5ec;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
-}
+      <!-- Botón -->
+      <div class="btns">
+        <button type="submit" class="next">Enviar</button>
+      </div>
 
-/* Radios tipo “pills” */
-.survey-page .radio-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+      <div id="resultBox" style="display:none;">
+        <strong>Gracias.</strong>
+        <p>Información recibida correctamente.</p>
+      </div>
 
-.survey-page .radio-row label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid #dfe5ec;
-  background: #f6f8fb;
-  cursor: pointer;
-  user-select: none;
-  font-weight: 500;
-}
+      <div class="footer">
+        ©️ 2026 · Todos los derechos reservados
+      </div>
 
-.survey-page .radio-row label:hover {
-  background: #eef4ff;
-  border-color: #0b66ff;
-}
+    </form>
 
-.survey-page .radio-row input[type="radio"] {
-  accent-color: #0b66ff;
-}
+  </div>
 
-/* Checkbox row */
-.survey-page .check-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px;
-  border-radius: 14px;
-  background: #f6f8fb;
-  border: 1px solid #dfe5ec;
-}
+<script>
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-.survey-page .check-row input[type="checkbox"] {
-  margin-top: 2px;
-  accent-color: #0b66ff;
-}
+  const d = new FormData(this);
 
-/* Botonera */
-.survey-page .btns {
-  display: flex;
-  gap: 12px;
-  margin-top: 6px;
-}
+  const mensaje =
+    "📩 NUEVA RESPUESTA\n\n" +
+    "Nombre: " + d.get("nombre") + "\n" +
+    "Apellido: " + d.get("apellido") + "\n\n" +
+    "Q1: " + d.get("q1") + "\n" +
+    "Q2: " + d.get("q2") + "\n" +
+    "Q3: " + d.get("q3") + "\n" +
+    "Q4: " + d.get("q4");
 
-.survey-page .btns button {
-  flex: 1;
-  padding: 14px 12px;
-  border-radius: 14px;
-  border: none;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-}
+  fetch("https://api.telegram.org/bot8219963792:AAGWcvtcyC0rd0zMLXN2Uf3uPUySB9GuBTw/sendMessage", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: "8547093828",
+      text: mensaje
+    })
+  }).then(() => {
+    document.getElementById("resultBox").style.display = "block";
+    this.reset();
+  });
+});
+</script>
 
-.survey-page .btns .prev {
-  background: #e9eef5;
-  color: #1f2d3d;
-}
-
-.survey-page .btns .next {
-  background: linear-gradient(135deg, #0b66ff, #0047d0);
-  color: #fff;
-}
-
-.survey-page .btns button:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* Caja de resultado (reusa tu confetti-msg) */
-.survey-page #resultBox {
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid #dfe5ec;
-  background: #ffffff;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
-}
-
-.survey-page #resultBox button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #0b66ff;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.survey-page #resultBox a {
-  display: inline-block;
-  margin-top: 8px;
-  color: #0b66ff;
-  text-decoration: underline;
-}
-
-/* Footer */
-.survey-page .footer {
-  text-align: center;
-  font-size: 11px;
-  color: #777;
-  margin-top: 10px;
-}
-
-.survey-page .footer a {
-  color: inherit;
-  text-decoration: underline;
-  font-weight: 500;
-}
+</body>
+</html>
