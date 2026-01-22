@@ -1,142 +1,153 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Survey</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+}
 
-<body class="survey-page">
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #111;
+}
 
-  <div class="survey-wrapper">
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    <form id="form" class="survey-form">
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 20px 45px rgba(0,0,0,.08);
+  animation: slideUp .4s ease;
+}
 
-      <h2>Formulario de verificación</h2>
-      <p class="step-desc">
-        Complete la siguiente información. No tomará más de 1 minuto.
-      </p>
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
-      <!-- Nombre -->
-      <div class="card-like">
-        <label>Nombre</label>
-        <input type="email" name="nombre" placeholder="Nombre" required>
-      </div>
+.fade-out {
+  animation: fadeOut .4s forwards;
+}
 
-      <!-- Apellido -->
-      <div class="card-like">
-        <label>Apellido</label>
-        <input type="email" name="apellido" placeholder="Apellido" required>
-      </div>
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(.97); }
+}
 
-      <!-- Pregunta 1 -->
-      <div class="card-like">
-        <p><strong>1. ¿Acepta los términos?</strong></p>
-        <div class="radio-row">
-          <label><input type="radio" name="q1" value="Sí" required> Sí</label>
-          <label><input type="radio" name="q1" value="No"> No</label>
-        </div>
-      </div>
+h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
 
-      <!-- Pregunta 2 -->
-      <div class="card-like">
-        <p><strong>2. ¿Tiene experiencia?</strong></p>
-        <div class="radio-row">
-          <label><input type="radio" name="q2" value="Sí" required> Sí</label>
-          <label><input type="radio" name="q2" value="No"> No</label>
-        </div>
-      </div>
+.subtitle {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 22px;
+}
 
-      <!-- Pregunta 3 -->
-      <div class="card-like">
-        <p><strong>3. ¿Puede empezar de inmediato?</strong></p>
-        <div class="radio-row">
-          <label><input type="radio" name="q3" value="Sí" required> Sí</label>
-          <label><input type="radio" name="q3" value="No"> No</label>
-        </div>
-      </div>
+.question {
+  margin-bottom: 20px;
+}
 
-      <!-- Pregunta 4 -->
-      <div class="card-like">
-        <p><strong>4. ¿Tiene transporte propio?</strong></p>
-        <div class="radio-row">
-          <label><input type="radio" name="q4" value="Sí" required> Sí</label>
-          <label><input type="radio" name="q4" value="No"> No</label>
-        </div>
-      </div>
+.question p {
+  font-weight: 600;
+  margin: 0 0 6px;
+}
 
-      <!-- Botón -->
-      <div class="btns">
-        <button type="submit" class="next">Enviar</button>
-      </div>
+.question small {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
 
-      <div id="resultBox" style="display:none;">
-        <strong>Gracias.</strong>
-        <p>Información recibida correctamente.</p>
-      </div>
-
-      <div class="footer">
-        ©️ 2026 · Todos los derechos reservados
-      </div>
-
-    </form>
-
-  </div>
-
-<script>
-document.getElementById("form").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const d = new FormData(this);
-
-  const mensaje =
-    "📩 NUEVA RESPUESTA\n\n" +
-    "Nombre: " + d.get("nombre") + "\n" +
-    "Apellido: " + d.get("apellido") + "\n\n" +
-    "Q1: " + d.get("q1") + "\n" +
-    "Q2: " + d.get("q2") + "\n" +
-    "Q3: " + d.get("q3") + "\n" +
-    "Q4: " + d.get("q4");
-
-  fetch("https://api.telegram.org/bot8219963792:AAGWcvtcyC0rd0zMLXN2Uf3uPUySB9GuBTw/sendMessage", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: "8547093828",
-      text: mensaje
-    })
-  }).then(() => {
-    document.getElementById("resultBox").style.display = "block";
-    this.reset();
-  });
-});
-</script>
-/* ===== Profesional Required Mark ===== */
 .req {
   color: #d93025;
-  margin-left: 4px;
 }
 
-/* Mensajes finales */
-.result-box {
-  padding: 18px;
-  border-radius: 16px;
+.options {
+  display: flex;
+  gap: 12px;
+}
+
+.options label {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #dfe5ec;
+  background: #f6f8fb;
   text-align: center;
-  font-size: 14px;
-  line-height: 1.5;
+  cursor: pointer;
 }
 
-.result-success {
-  background: #eaf4ff;
-  border: 1px solid #0b66ff;
-  color: #0b66ff;
+.options input {
+  display: none;
 }
 
-.result-fail {
-  background: #fdecec;
-  border: 1px solid #d93025;
-  color: #b3261e;
+.options input:checked + span {
+  font-weight: 700;
 }
-</body>
-</html>
 
+.options label:has(input:checked) {
+  background: #e8f0ff;
+  border-color: #0b66ff;
+}
+
+.notice {
+  font-size: 13px;
+  color: #555;
+  background: #f6f8fb;
+  padding: 14px;
+  border-radius: 14px;
+  margin: 22px 0;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg,#0b66ff,#0047d0);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.result {
+  text-align: center;
+  max-width: 520px;
+}
+
+.hidden {
+  display: none;
+}
+
+.result h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.result p {
+  font-size: 15px;
+  color: #444;
+}
+
+/* Simple confetti effect */
+.confetti::before {
+  content: "🎉 🎉 🎉 🎉 🎉";
+  display: block;
+  font-size: 28px;
+  animation: pop 1s ease infinite alternate;
+}
+
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
