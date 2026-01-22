@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pre-Screening – SunPower Corporate Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="survey-page">
+
+  <div class="lang-container">
+    <select class="lang-select" id="langSelect">
+      <option value="es">ES</option>
+      <option value="en">EN</option>
+    </select>
+  </div>
+
+  <div class="app-container">
+    <div class="form-wrapper survey-wrapper">
+
+      <div class="progress-bar">
+        <div class="progress" id="progress" style="width: 0%"></div>
+      </div>
+
+      <form id="preForm" class="form-step active survey-form" style="display:flex;">
+        <h2 data-es="Encuesta de Pre-Screening" data-en="Pre-Screening Survey">Encuesta de Pre-Screening</h2>
+
+        <p class="step-desc"
+           data-es="Responde estas preguntas para determinar elegibilidad. Guardaremos tus respuestas y tu correo para contacto."
+           data-en="Answer these questions to determine eligibility. We will save your answers and email for contact.">
+          Responde estas preguntas para determinar elegibilidad. Guardaremos tus respuestas y tu correo para contacto.
+        </p>
+
+        <label data-es="Correo electrónico (obligatorio)" data-en="Email (required)">Correo electrónico (obligatorio)</label>
+        <input type="email" name="email" id="email" required placeholder="name@example.com" />
+
+        <div style="margin-top: 14px;"></div>
+
+        <!-- Q1 -->
+        <div class="card-like">
+          <div style="font-weight:600; margin-bottom:10px;"
+               data-es="1️⃣ Disponibilidad (Obligatorio)"
+               data-en="1️⃣ Availability (Required)">
+            1️⃣ Disponibilidad (Obligatorio)
+          </div>
+          <div style="opacity:0.85; font-size:14px; line-height:1.4;"
+               data-es="Disponibilidad full-time, on-site en Nashville, TN por los 9 meses."
+               data-en="Full-time, on-site availability in Nashville, TN for the full 9 months.">
+            Disponibilidad full-time, on-site en Nashville, TN por los 9 meses.
+          </div>
+
+          <div class="radio-row" style="margin-top:10px;">
+            <label><input type="radio" name="q1" value="Yes" required> <span data-es="Sí" data-en="Yes">Sí</span></label>
+            <label><input type="radio" name="q1" value="No" required> <span data-es="No" data-en="No">No</span></label>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="card-like" style="margin-top:14px;">
+          <div style="font-weight:600; margin-bottom:10px;"
+               data-es="2️⃣ Onboarding (Obligatorio)"
+               data-en="2️⃣ Onboarding Compliance (Required)">
+            2️⃣ Onboarding (Obligatorio)
+          </div>
+          <div style="opacity:0.85; font-size:14px; line-height:1.4;"
+               data-es="Puedo completar: aplicación, contrato, registro en portal y entrenamiento de seguridad."
+               data-en="I can complete: application, contract execution, portal registration, and safety training.">
+            Puedo completar: aplicación, contrato, registro en portal y entrenamiento de seguridad.
+          </div>
+
+          <div class="radio-row" style="margin-top:10px;">
+            <label><input type="radio" name="q2" value="Yes" required> <span data-es="Sí" data-en="Yes">Sí</span></label>
+            <label><input type="radio" name="q2" value="No" required> <span data-es="No" data-en="No">No</span></label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="card-like" style="margin-top:14px;">
+          <div style="font-weight:600; margin-bottom:10px;"
+               data-es="3️⃣ Alojamiento (Obligatorio)"
+               data-en="3️⃣ Lodging Requirement (Required)">
+            3️⃣ Alojamiento (Obligatorio)
+          </div>
+          <div style="opacity:0.85; font-size:14px; line-height:1.4;"
+               data-es="Puedo reservar y pagar el lodging usando el portal designado antes de la fecha de inicio."
+               data-en="I can reserve and pay for lodging through the designated portal before the start date.">
+            Puedo reservar y pagar el lodging usando el portal designado antes de la fecha de inicio.
+          </div>
+
+          <div class="radio-row" style="margin-top:10px;">
+            <label><input type="radio" name="q3" value="Yes" required> <span data-es="Sí" data-en="Yes">Sí</span></label>
+            <label><input type="radio" name="q3" value="No" required> <span data-es="No" data-en="No">No</span></label>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="card-like" style="margin-top:14px;">
+          <div style="font-weight:600; margin-bottom:10px;"
+               data-es="4️⃣ Identificación (Obligatorio)"
+               data-en="4️⃣ Employment Identification (Required)">
+            4️⃣ Identificación (Obligatorio)
+          </div>
+          <div style="opacity:0.85; font-size:14px; line-height:1.4;"
+               data-es="Puedo proporcionar dos formas válidas de identificación para verificación de empleo."
+               data-en="I can provide two acceptable forms of employment identification for verification.">
+            Puedo proporcionar dos formas válidas de identificación para verificación de empleo.
+          </div>
+
+          <div class="radio-row" style="margin-top:10px;">
+            <label><input type="radio" name="q4" value="Yes" required> <span data-es="Sí" data-en="Yes">Sí</span></label>
+            <label><input type="radio" name="q4" value="No" required> <span data-es="No" data-en="No">No</span></label>
+          </div>
+        </div>
+
+        <label class="check-row" style="margin-top:14px;">
+          <input type="checkbox" id="contactConsent" required>
+          <span
+            data-es="Acepto ser contactado(a) por reclutamiento/HR usando mi correo."
+            data-en="I consent to be contacted by recruiting/HR using my email.">
+            Acepto ser contactado(a) por reclutamiento/HR usando mi correo.
+          </span>
+        </label>
+
+        <div class="btns" style="margin-top:16px;">
+          <button type="submit" class="next" id="submitBtn">
+            <span data-es="Enviar" data-en="Submit">Enviar</span>
+          </button>
+        </div>
+
+        <div class="confetti-msg" id="resultBox" style="display:none; margin-top: 16px;"></div>
+
+        <div class="footer" style="margin-top:18px;">
+          <span>
+            ©️ 2026 SunPower Corporation. Todos los derechos reservados. ·
+            <a href="mailto:hr@sunpowerc.energy">hr@sunpowerc.energy</a>
+          </span>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_ivkItGfqRxcV6aCaLgrIu4SjBCb3_7m7usFiIGKWlENKx9yPpHDJzM2fB598DmDu/exec";
+
+    const form = document.getElementById('preForm');
+    const resultBox = document.getElementById('resultBox');
+    const submitBtn = document.getElementById('submitBtn');
+    const progress = document.getElementById('progress');
+
+    function computeProgress() {
+      const fields = ['q1','q2','q3','q4'];
+      let done = 0;
+      fields.forEach(name => {
+        const checked = form.querySelector(`input[name="${name}"]:checked`);
+        if (checked) done++;
+      });
+      const percent = (done / 4) * 100;
+      if (progress) progress.style.width = percent + '%';
+    }
+
+    form.addEventListener('change', computeProgress);
+    computeProgress();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      resultBox.style.display = "none";
+      resultBox.textContent = "";
+
+      const payload = {
+        email: document.getElementById('email').value.trim(),
+        q1: form.querySelector('input[name="q1"]:checked').value,
+        q2: form.querySelector('input[name="q2"]:checked').value,
+        q3: form.querySelector('input[name="q3"]:checked').value,
+        q4: form.querySelector('input[name="q4"]:checked').value,
+        eligible: null,
+        userAgent: navigator.userAgent,
+        page: "index.html | " + (location.pathname || "")
+      };
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();
+        let data = {};
+        try { data = JSON.parse(text); } catch (e) {}
+
+        if (!data || data.ok !== true) {
+          throw new Error((data && data.error) ? data.error : ("Backend error: " + text));
+        }
+
+        const eligible = (typeof data.eligible === "boolean")
+          ? data.eligible
+          : (payload.q1==="Yes" && payload.q2==="Yes" && payload.q3==="Yes" && payload.q4==="Yes");
+
+        resultBox.style.display = "block";
+
+        if (eligible === true) {
+          resultBox.innerHTML = `
+            ✅ <b>Gracias.</b> Tu información fue registrada correctamente.<br>
+            HR / Recruiting te contactará por correo con los próximos pasos.<br>
+            <div style="margin-top:10px; font-size:13px; opacity:0.85;">
+              Si necesitas escribirnos: <a href="mailto:hr@sunpowerc.energy">hr@sunpowerc.energy</a>
+            </div>
+          `;
+        } else {
+          resultBox.innerHTML = `
+            ⚠️ <b>Gracias.</b> Tu información fue registrada correctamente.<br>
+            En este momento no cumples con todos los requisitos obligatorios, pero HR / Recruiting puede contactarte si surge una opción compatible.<br>
+            <div style="margin-top:10px; font-size:13px; opacity:0.85;">
+              Si necesitas escribirnos: <a href="mailto:hr@sunpowerc.energy">hr@sunpowerc.energy</a>
+            </div>
+          `;
+        }
+
+        resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      } catch (err) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `
+          ❌ <b>Error enviando la información.</b> Intenta nuevamente.<br>
+          <div style="margin-top:6px; font-size:12px; opacity:0.75;">${String(err.message || err)}</div>
+        `;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Idiomas
+    const langSelect = document.getElementById('langSelect');
+
+    function applyLanguage(lang) {
+      const L = (lang === 'en') ? 'en' : 'es';
+      if (langSelect) langSelect.value = L;
+      try { localStorage.setItem('appLang', L); } catch(e){}
+
+      document.querySelectorAll('[data-es][data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + L);
+        if (val != null) el.textContent = val;
+      });
+    }
+
+    (function initLanguage(){
+      let lang = 'es';
+      try {
+        const saved = localStorage.getItem('appLang');
+        if (saved === 'en' || saved === 'es') lang = saved;
+      } catch(e){}
+      if (langSelect) {
+        langSelect.value = lang;
+        langSelect.addEventListener('change', (e) => applyLanguage(e.target.value));
+      }
+      applyLanguage(lang);
+    })();
+  </script>
+
+</body>
+</html>
